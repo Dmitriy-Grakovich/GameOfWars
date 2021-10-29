@@ -11,8 +11,10 @@ import 'gameObejctImp.sol';
 contract basestation is gameObejctImp {
 
     uint[] army;
+
+    uint256 addressbase = msg.pubkey();
     
-    mapping(uint => uint) unitid;
+    mapping(uint => uint) unitid;   
 
     constructor() public {
        
@@ -21,6 +23,7 @@ contract basestation is gameObejctImp {
         require(msg.pubkey() == tvm.pubkey(), 102);
         
         tvm.accept();
+        
     }
     //- получить силу защиты
     function addProtection(uint pow) public override checkOwnerAndAccept{
@@ -45,6 +48,10 @@ contract basestation is gameObejctImp {
     //- Убрать военный юнит
     function deleteunit(uint addreswarunit) public checkOwnerAndAccept{
         delete army[unitid[addreswarunit]];
+    }
+
+    function getAddres() public checkOwnerAndAccept returns(uint addr){
+        addr = addressbase;
     }
 
     

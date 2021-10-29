@@ -11,7 +11,7 @@ import "gameObejct.sol";
 contract gameObejctImp is gameObejct {
       
     //здоровье
-    uint health = 5;
+    uint public health = 5;
     // адрес нападоющего
     uint addressenemy;
 
