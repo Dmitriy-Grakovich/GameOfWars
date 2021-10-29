@@ -13,7 +13,7 @@ contract gameObejctImp is gameObejct {
     //здоровье
     uint health = 5;
     // адрес нападоющего
-    address adatac;
+    uint addressenemy;
 
     constructor() public {
         // Check that contract's public key is set
@@ -36,12 +36,12 @@ contract gameObejctImp is gameObejct {
 
     // принять атаку определить жив ли и подсчет здлровья
     function addAtac(uint power) public override checkOwnerAndAccept{
-        adatac = msg.sender;
+        addressenemy = msg.pubkey();
         health = health - power;
     } 
 
      // получить силу защиты
-    function addProtection(uint pow) public checkOwnerAndAccept{
+    function addProtection(uint pow) public virtual checkOwnerAndAccept{
         health = health + pow;
     }
     // проверка на смерть
@@ -49,10 +49,10 @@ contract gameObejctImp is gameObejct {
          return health <=0;
     }
     //обработка гибели
-    function processingdeath() public checkOwnerAndAccept{
-        sendValue(adatac, 0, death());
+    function processingdeath() public virtual checkOwnerAndAccept{
+        if( death()==true){
+        sendValue(address(addressenemy), 0, true);}
     }
-
 
     //отправка всех денег атакующему и уничтожение.
     function sendValue(address dest, uint128 amount, bool bounce) public view  checkOwnerAndAccept{
