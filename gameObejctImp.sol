@@ -13,17 +13,14 @@ contract gameObejctImp is gameObejct {
     //здоровье
     uint public health = 5;
     // адрес нападоющего
-    uint addressenemy;
+    address addressenemy;
 
     constructor() public {
-        // Check that contract's public key is set
+ 
         require(tvm.pubkey() != 0, 101);
-        // Check that message has signature (msg.pubkey() is not zero) and
-        // message is signed with the owner's private key
+      
         require(msg.pubkey() == tvm.pubkey(), 102);
-        // The current smart contract agrees to buy some gas to finish the
-        // current transaction. This actions required to process external
-        // messages, which bring no value (henceno gas) with themselves.
+  
         tvm.accept();
     }
 
@@ -36,7 +33,7 @@ contract gameObejctImp is gameObejct {
 
     // принять атаку определить жив ли и подсчет здлровья
     function addAtac(uint power) public override checkOwnerAndAccept{
-        addressenemy = msg.pubkey();
+        addressenemy = address(msg.sender);
         health = health - power;
     } 
 

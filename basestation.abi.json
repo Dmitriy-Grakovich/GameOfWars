@@ -1,0 +1,83 @@
+{
+	"ABI version": 2,
+	"version": "2.1",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addProtection",
+			"inputs": [
+				{"name":"pow","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "processingdeath",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addunit",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deleteunit",
+			"inputs": [
+				{"name":"addreswarunit","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addAtac",
+			"inputs": [
+				{"name":"power","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "sendValue",
+			"inputs": [
+				{"name":"dest","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"bounce","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "health",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"health","type":"uint256"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"health","type":"uint256"},
+		{"name":"addressenemy","type":"address"},
+		{"name":"army","type":"address[]"},
+		{"name":"unitid","type":"map(address,uint256)"}
+	]
+}

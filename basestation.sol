@@ -10,11 +10,10 @@ import 'gameObejctImp.sol';
 //Контракт "Базовая станция" (Родитель "Игровой объект")
 contract basestation is gameObejctImp {
 
-    uint[] army;
+    address[] army;
 
-    uint256 addressbase = msg.pubkey();
     
-    mapping(uint => uint) unitid;   
+    mapping(address => uint) unitid;   
 
     constructor() public {
        
@@ -23,7 +22,7 @@ contract basestation is gameObejctImp {
         require(msg.pubkey() == tvm.pubkey(), 102);
         
         tvm.accept();
-        
+                
     }
     //- получить силу защиты
     function addProtection(uint pow) public override checkOwnerAndAccept{
@@ -35,24 +34,23 @@ contract basestation is gameObejctImp {
         if( health <=0 ){
         sendValue(address(addressenemy), 0, true);
         //вызов метода смерти для каждого из военных юнитов базы....
-        //......
+        for (uint256 index = 0; index < army.length; index++) {
+            
+        }
         }
     }
 
     //Добавить военный юнит (добавляет адрес военного юнита в массив или другую структуру данных)
-    function addunit(uint addreswarunit) public checkOwnerAndAccept{
-        army.push(addreswarunit);
-        unitid[addreswarunit] = army.length-1;
+    function addunit() public checkOwnerAndAccept{
+        army.push(msg.sender);
+        unitid[msg.sender] = army.length-1;
     }
 
     //- Убрать военный юнит
-    function deleteunit(uint addreswarunit) public checkOwnerAndAccept{
+    function deleteunit(address addreswarunit) public checkOwnerAndAccept{
         delete army[unitid[addreswarunit]];
     }
-
-    function getAddres() public checkOwnerAndAccept returns(uint addr){
-        addr = addressbase;
-    }
+    //
 
     
 }

@@ -10,25 +10,25 @@ import 'basestation.sol';
 //Контракт "Военный юнит" (Родитель "Игровой объект")
 contract warunit is gameObejctImp {
 
-    uint addressbasess;
-    basestation basa;
+    address addressbas;
+   
     uint atac;
 
   // конструктор принимает "Базовая станция" и вызывает метод "Базовой Станции" 
   //"Добавить военный юнит" а у себя сохраняет адрес "Базовой станции"
-    constructor (basestation base) public {
+    constructor (address base) public {
         require(tvm.pubkey() != 0, 101);
         require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
-        base.addunit(msg.pubkey());
-        basa = base;
-        //addressbasess = base.getAddres();
+        basestation(base).addunit();
+        addressbas = base;
+        
     }
 
 
     //- атаковать (принимает ИИО [его адрес])
-    function ataca(uint addres) public checkOwnerAndAccept{
-        
+    function ataca(address addresiio) public checkOwnerAndAccept {
+        gameObejct(addresiio).addAtac(atac);
     }
 //- получить силу атаки
     function ataclevel(uint value) public virtual checkOwnerAndAccept{
@@ -44,11 +44,13 @@ contract warunit is gameObejctImp {
     function processingdeath() public override checkOwnerAndAccept{
         
         sendValue(address(addressenemy), 0, true);
-        basa.deleteunit(msg.pubkey());
+        basestation(addressbas).deleteunit(this);
         
     }
 //- смерть из-за базы (проверяет, что вызов от родной базовой станции только будет работать) [вызов метода самоуничтожения]
-    function deathisbase() public checkOwnerAndAccept{
-        
+    function deathisbase() public checkOwnerAndAccept {
+        if(addressbas == msg.sender){
+            this.processingdeath();
+        }
     }
 }

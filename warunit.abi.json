@@ -1,0 +1,92 @@
+{
+	"ABI version": 2,
+	"version": "2.1",
+	"header": ["time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"base","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "ataca",
+			"inputs": [
+				{"name":"addresiio","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "ataclevel",
+			"inputs": [
+				{"name":"value","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addProtection",
+			"inputs": [
+				{"name":"pow","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "processingdeath",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "deathisbase",
+			"inputs": [
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "addAtac",
+			"inputs": [
+				{"name":"power","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "sendValue",
+			"inputs": [
+				{"name":"dest","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"bounce","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "health",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"health","type":"uint256"}
+			]
+		}
+	],
+	"data": [
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"health","type":"uint256"},
+		{"name":"addressenemy","type":"address"},
+		{"name":"addressbas","type":"address"},
+		{"name":"atac","type":"uint256"}
+	]
+}
