@@ -52,7 +52,7 @@ contract gameObejctImp is gameObejct {
     }
 
     //отправка всех денег атакующему и уничтожение.
-    function sendValue(address dest, uint128 amount, bool bounce) public view  checkOwnerAndAccept{
+    function sendValue(address dest, uint128 amount, bool bounce) public virtual view  checkOwnerAndAccept{
         dest.transfer(0, bounce, 160);
     }
 }

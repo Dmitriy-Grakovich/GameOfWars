@@ -6,26 +6,25 @@
 pragma ton-solidity >= 0.35.0;
 pragma AbiHeader expire;
 import 'warunit.sol';
+//import 'gameObejctImp.sol';
 
 // This is class that describes you smart contract.
-abstract contract warior is warunit {
-   
-    constructor() public {
-      
+contract warior is warunit {
+
+     constructor() warunit (addressbas) public {
+        
         require(tvm.pubkey() != 0, 101);
-     
         require(msg.pubkey() == tvm.pubkey(), 102);
-       
-        tvm.accept();       
+        tvm.accept();
     }
-    //получить атаку
+
+     //получить атаку
     function ataclevel(uint value) public override checkOwnerAndAccept{
         atac = atac + value;
     }
 
-///- получить силу защиты
+    //- получить силу защиты
     function addProtection(uint pow) public  override checkOwnerAndAccept{
         health = health + pow;
     }
-    
 }
