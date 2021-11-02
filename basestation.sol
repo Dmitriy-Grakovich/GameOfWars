@@ -5,12 +5,16 @@
  */
 pragma ton-solidity >= 0.35.0;
 pragma AbiHeader expire;
+
 import 'gameObejctImp.sol';
+import 'warunit.sol' as unit;
+
+
 
 //Контракт "Базовая станция" (Родитель "Игровой объект")
 contract basestation is gameObejctImp {
 
-    address[] army;
+    address[] public army;
 
     
     mapping(address => uint) unitid;   
@@ -31,19 +35,20 @@ contract basestation is gameObejctImp {
 
     //обработка гибели [вызов метода самоуничтожения + вызов метода смерти для каждого из военных юнитов базы]
     function processingdeath() public override checkOwnerAndAccept{
-        if( health <=0 ){
-        sendValue(address(addressenemy), 0, true);
+        if( health <= 0 ){
+        sendValue(address(addressenemy));
         //вызов метода смерти для каждого из военных юнитов базы....
         for (uint256 index = 0; index < army.length; index++) {
-            
+           unit.warunit(army[index]).deathisbase();
+            deleteunit(army[index]);
         }
         }
     }
 
     //Добавить военный юнит (добавляет адрес военного юнита в массив или другую структуру данных)
-    function addunit() public checkOwnerAndAccept{
-        army.push(msg.sender);
-        unitid[msg.sender] = army.length-1;
+    function addunit(address unitwar) public checkOwnerAndAccept{
+        army.push(unitwar);
+        unitid[unitwar] = army.length-1;
     }
 
     //- Убрать военный юнит

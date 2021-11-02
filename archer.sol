@@ -10,7 +10,7 @@ import 'warunit.sol';
 // This is class that describes you smart contract.
 contract archer is warunit {
 
-    constructor() warunit(addressbas) public {
+    constructor(address addressbas) warunit(addressbas) public {
         
         require(tvm.pubkey() != 0, 101);
         require(msg.pubkey() == tvm.pubkey(), 102);

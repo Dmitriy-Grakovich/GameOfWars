@@ -10,9 +10,10 @@ import 'basestation.sol';
 //Контракт "Военный юнит" (Родитель "Игровой объект")
 contract warunit is gameObejctImp {
 
-    address addressbas;
+    address public addressbas;
    
-    uint atac;
+    uint public atac;
+    uint public static unitNumber;
 
   // конструктор принимает "Базовая станция" и вызывает метод "Базовой Станции" 
   //"Добавить военный юнит" а у себя сохраняет адрес "Базовой станции"
@@ -20,15 +21,15 @@ contract warunit is gameObejctImp {
         require(tvm.pubkey() != 0, 101);
         require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
-        basestation(base).addunit();
         addressbas = base;
+        basestation(base).addunit(this);
         
     }
 
 
     //- атаковать (принимает ИИО [его адрес])
-    function ataca(address addresiio) public checkOwnerAndAccept {
-        gameObejct(addresiio).addAtac(atac);
+    function ataca(gameObejctImp addresiio) public checkOwnerAndAccept {
+        gameObejctImp(addresiio).addAtac(atac);
     }
 //- получить силу атаки
     function ataclevel(uint value) public virtual checkOwnerAndAccept{
@@ -42,15 +43,14 @@ contract warunit is gameObejctImp {
 //- обработка гибели [вызов метода самоуничтожения + убрать военный юнит из базовой станции]
 
     function processingdeath() public override checkOwnerAndAccept{
-        
-        sendValue(address(addressenemy), 0, true);
+        sendValue(addressenemy);
         basestation(addressbas).deleteunit(this);
-        
     }
-//- смерть из-за базы (проверяет, что вызов от родной базовой станции только будет работать) [вызов метода самоуничтожения]
-    function deathisbase() public checkOwnerAndAccept {
-        if(addressbas == msg.sender){
-            this.processingdeath();
-        }
+  //- смерть из-за базы (проверяет, что вызов от родной базовой станции только будет работать) [вызов метода самоуничтожения]
+    function deathisbase() public view {
+       require(msg.pubkey() != tvm.pubkey(), 102);
+		tvm.accept();
+        sendValue(addressenemy);
+        
     }
 }
