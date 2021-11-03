@@ -6,7 +6,7 @@
 		{
 			"name": "constructor",
 			"inputs": [
-				{"name":"addressbas","type":"address"}
+				{"name":"addr","type":"address"}
 			],
 			"outputs": [
 			]
@@ -50,9 +50,9 @@
 			]
 		},
 		{
-			"name": "addAtac",
+			"name": "addAtaca",
 			"inputs": [
-				{"name":"power","type":"uint256"}
+				{"name":"value","type":"uint256"}
 			],
 			"outputs": [
 			]
@@ -71,6 +71,14 @@
 			],
 			"outputs": [
 				{"name":"health","type":"uint256"}
+			]
+		},
+		{
+			"name": "protection",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"protection","type":"uint256"}
 			]
 		},
 		{
@@ -116,6 +124,7 @@
 		{"name":"_timestamp","type":"uint64"},
 		{"name":"_constructorFlag","type":"bool"},
 		{"name":"health","type":"uint256"},
+		{"name":"protection","type":"uint256"},
 		{"name":"addressenemy","type":"address"},
 		{"name":"addressbas","type":"address"},
 		{"name":"atac","type":"uint256"},

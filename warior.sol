@@ -11,13 +11,12 @@ import 'warunit.sol';
 // This is class that describes you smart contract.
 contract warior is warunit {
 
-     constructor(address addr) warunit (addressbas) public {
-        addressbas = addr ;
+     constructor(basestation addr) warunit (addr) public {
+
         require(tvm.pubkey() != 0, 101);
         require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
         
-
     }
 
      //получить атаку
@@ -27,6 +26,6 @@ contract warior is warunit {
 
     //- получить силу защиты
     function addProtection(uint pow) public  override checkOwnerAndAccept{
-        health = health + pow;
+        protection = protection + pow;
     }
 }

@@ -8,49 +8,45 @@ import 'gameObejctImp.sol';
 import 'basestation.sol';
 
 //Контракт "Военный юнит" (Родитель "Игровой объект")
-contract warunit is gameObejctImp {
+abstract contract warunit is gameObejctImp {
 
-    address public addressbas;
+    basestation public addressbas;
    
-    uint public atac;
+    uint public atac = 6;
     uint public static unitNumber;
 
   // конструктор принимает "Базовая станция" и вызывает метод "Базовой Станции" 
   //"Добавить военный юнит" а у себя сохраняет адрес "Базовой станции"
-    constructor (address base) public {
+    constructor (basestation base) public {
         require(tvm.pubkey() != 0, 101);
         require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
         addressbas = base;
-        basestation(base).addunit(this);
-        
+        base.addUnit();
     }
 
 
     //- атаковать (принимает ИИО [его адрес])
-    function ataca(gameObejctImp addresiio) public checkOwnerAndAccept {
-        gameObejctImp(addresiio).addAtac(atac);
+    function ataca(gameObejct addresiio) public checkOwnerAndAccept {
+        addresiio.addAtaca(atac);
     }
-//- получить силу атаки
-    function ataclevel(uint value) public virtual checkOwnerAndAccept{
-        atac = atac + value;
-    }
+    //- получить силу атаки
+    function ataclevel(uint value) public virtual;
 
-///- получить силу защиты
-    function addProtection(uint pow) public virtual override checkOwnerAndAccept{
-        health = health + pow;
-    }
-//- обработка гибели [вызов метода самоуничтожения + убрать военный юнит из базовой станции]
+    //- получить силу защиты
+    function addProtection(uint pow) public virtual override;
+
+    //- обработка гибели [вызов метода самоуничтожения + убрать военный юнит из базовой станции]
 
     function processingdeath() public override checkOwnerAndAccept{
         sendValue(addressenemy);
-        basestation(addressbas).deleteunit(this);
+        addressbas.deleteunit();
     }
-  //- смерть из-за базы (проверяет, что вызов от родной базовой станции только будет работать) [вызов метода самоуничтожения]
+
+    //- смерть из-за базы (проверяет, что вызов от родной базовой станции только будет работать) [вызов метода самоуничтожения]
     function deathisbase() public view {
-       require(msg.pubkey() != tvm.pubkey(), 102);
-		tvm.accept();
+       if(msg.sender == addressbas) {
         sendValue(addressenemy);
-        
+       }
     }
 }

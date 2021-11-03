@@ -8,10 +8,12 @@ pragma AbiHeader expire;
 import "gameObejct.sol";
 
 // This is class that describes you smart contract.
-contract gameObejctImp is gameObejct {
+abstract contract gameObejctImp is gameObejct {
       
     //здоровье
-    uint public health = 5;
+    uint public health = 10;
+    // сила щита
+    uint public protection = 2;
     // адрес нападоющего
     address public addressenemy;
 
@@ -25,31 +27,37 @@ contract gameObejctImp is gameObejct {
     }
 
     modifier checkOwnerAndAccept {
-		// Check that message was signed with contracts key.
 		require(msg.pubkey() == tvm.pubkey(), 102);
 		tvm.accept();
 		_;
 	}
 
     // принять атаку определить жив ли и подсчет здлровья
-    function addAtac(uint power) public override checkOwnerAndAccept{
+   function addAtaca(uint value) public override{
+        tvm.accept();
         addressenemy = msg.sender;
-        health = health - power;
-        processingdeath();
-    } 
+        uint atac = value - protection;
+        death(atac);
+        if(health == 0){
+            processingdeath();
+        }
+        
+    }
+    
+    // получить силу защиты
+    function addProtection(uint pow) public virtual;
 
-     // получить силу защиты
-    function addProtection(uint pow) public virtual checkOwnerAndAccept{
-        health = health + pow;
-    }
     // проверка на смерть
-    function death() private checkOwnerAndAccept returns(bool b){
-         b = (health > 0);
-         return b;
+    function death(uint volue) private checkOwnerAndAccept {
+        if(health > volue){
+        health = health - volue;
+        } else {
+            health = 0;
+        }
     }
+
     //обработка гибели
-    function processingdeath() public virtual checkOwnerAndAccept{
-        require(death(), 103);
+    function processingdeath() public virtual checkOwnerAndAccept {
         sendValue(addressenemy);
     }
 

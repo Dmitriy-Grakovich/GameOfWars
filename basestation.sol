@@ -30,30 +30,31 @@ contract basestation is gameObejctImp {
     }
     //- получить силу защиты
     function addProtection(uint pow) public override checkOwnerAndAccept{
-        health = health + pow;
+        protection = protection + pow;
     }
 
     //обработка гибели [вызов метода самоуничтожения + вызов метода смерти для каждого из военных юнитов базы]
     function processingdeath() public override checkOwnerAndAccept{
-        if( health <= 0 ){
-        sendValue(address(addressenemy));
+        
+        sendValue(addressenemy);
         //вызов метода смерти для каждого из военных юнитов базы....
         for (uint256 index = 0; index < army.length; index++) {
            unit.warunit(army[index]).deathisbase();
-            deleteunit(army[index]);
+           
         }
         }
-    }
+    
 
     //Добавить военный юнит (добавляет адрес военного юнита в массив или другую структуру данных)
-    function addunit(address unitwar) public checkOwnerAndAccept{
-        army.push(unitwar);
-        unitid[unitwar] = army.length-1;
+
+    function addUnit() public checkOwnerAndAccept{
+        army.push(msg.sender);
+        unitid[msg.sender] = army.length-1;
     }
 
     //- Убрать военный юнит
-    function deleteunit(address addreswarunit) public checkOwnerAndAccept{
-        delete army[unitid[addreswarunit]];
+    function deleteunit() public checkOwnerAndAccept{
+        delete army[unitid[msg.sender]];
     }
     //
 

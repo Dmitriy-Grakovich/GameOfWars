@@ -9,6 +9,6 @@ pragma AbiHeader expire;
 
 interface gameObejct {
     //принять атаку
-    function addAtac(uint power) external;
+    function addAtaca(uint power) external;
     
 }
