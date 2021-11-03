@@ -33,15 +33,17 @@ abstract contract gameObejctImp is gameObejct {
 	}
 
     // принять атаку определить жив ли и подсчет здлровья
-   function addAtaca(uint value) public override{
-        tvm.accept();
+   function addAtaca(uint value) public override checkOwnerAndAccept{
         addressenemy = msg.sender;
-        uint atac = value - protection;
-        death(atac);
+        uint atacer = value - protection;
+        if(health > atacer){
+        health = health - atacer;
+        } else {
+            health = 0;
+        }
         if(health == 0){
             processingdeath();
         }
-        
     }
     
     // получить силу защиты

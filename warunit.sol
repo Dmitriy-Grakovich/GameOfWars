@@ -22,7 +22,7 @@ abstract contract warunit is gameObejctImp {
         require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
         addressbas = base;
-        base.addUnit();
+        addressbas.addUnit();
     }
 
 
