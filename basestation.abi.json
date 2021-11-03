@@ -86,6 +86,14 @@
 			"outputs": [
 				{"name":"army","type":"address[]"}
 			]
+		},
+		{
+			"name": "lastunit",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"lastunit","type":"address"}
+			]
 		}
 	],
 	"data": [
@@ -100,6 +108,7 @@
 		{"name":"protection","type":"uint256"},
 		{"name":"addressenemy","type":"address"},
 		{"name":"army","type":"address[]"},
+		{"name":"lastunit","type":"address"},
 		{"name":"unitid","type":"map(address,uint256)"}
 	]
 }

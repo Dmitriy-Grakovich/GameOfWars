@@ -18,8 +18,6 @@ abstract contract warunit is gameObejctImp {
   // конструктор принимает "Базовая станция" и вызывает метод "Базовой Станции" 
   //"Добавить военный юнит" а у себя сохраняет адрес "Базовой станции"
     constructor (basestation base) public {
-        require(tvm.pubkey() != 0, 101);
-        require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
         addressbas = base;
         addressbas.addUnit();

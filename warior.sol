@@ -13,8 +13,6 @@ contract warior is warunit {
 
      constructor(basestation addr) warunit (addr) public {
 
-        require(tvm.pubkey() != 0, 101);
-        require(msg.pubkey() == tvm.pubkey(), 102);
         tvm.accept();
         
     }

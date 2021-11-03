@@ -15,16 +15,14 @@ import 'warunit.sol' as unit;
 contract basestation is gameObejctImp {
 
     address[] public army;
-
-    
+    address public lastunit;   
     mapping(address => uint) unitid;   
 
     constructor() public {
        
         require(tvm.pubkey() != 0, 101);
        
-        require(msg.pubkey() == tvm.pubkey(), 102);
-        
+
         tvm.accept();
                 
     }
@@ -40,16 +38,14 @@ contract basestation is gameObejctImp {
         //вызов метода смерти для каждого из военных юнитов базы....
         for (uint256 index = 0; index < army.length; index++) {
            unit.warunit(army[index]).deathisbase();
-           
         }
         }
-    
-
     //Добавить военный юнит (добавляет адрес военного юнита в массив или другую структуру данных)
 
     function addUnit() public checkOwnerAndAccept{
-        army.push(msg.sender);
-        unitid[msg.sender] = army.length-1;
+        lastunit = msg.sender;
+        army.push(lastunit);
+        unitid[lastunit] = army.length-1;
     }
 
     //- Убрать военный юнит
